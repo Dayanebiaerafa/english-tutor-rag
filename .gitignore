@@ -1,0 +1,7 @@
+.env
+.venv/
+__pycache__/
+# Conteudo dos livros e derivados: NAO subir (direitos autorais)
+books/*.pdf
+cache/
+faiss_index/

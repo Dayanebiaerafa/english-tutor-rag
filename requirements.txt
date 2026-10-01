@@ -1,0 +1,10 @@
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-google-genai
+# langchain-openai   # descomente se for usar PROVIDER=openai
+faiss-cpu
+pymupdf
+streamlit
+python-dotenv
