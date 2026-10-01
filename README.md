@@ -9,7 +9,7 @@ Chat que responde dúvidas e gera exercícios de inglês **com base nos livros d
 | Módulo | Responsabilidade |
 |---|---|
 | `config.py` | Caminhos, modelos e parâmetros em um só lugar |
-| `llms.py`| Fábrica de modelos: troca Gemini (gratuito) e OpenAI mudando uma variável
+| `llms.py` | Fábrica de modelos: troca Gemini (gratuito) e OpenAI mudando uma variável
 | `ingest.py` | PDF → texto por página (visão para páginas escaneadas) → chunks → embeddings → FAISS |
 | `rag.py` | Busca semântica com filtro por livro → re-rank → resposta do tutor |
 | `app.py` | Interface Streamlit (modos Explicar/Praticar, fontes visíveis) |
@@ -30,9 +30,9 @@ Fluxo: `PDF → transcrição → chunking (overlap + metadados) → embeddings 
 - Python **3.10 ou superior** (confira com `python --version`)
 - Uma chave gratuita do Gemini, gerada no [Google AI Studio](https://aistudio.google.com/)
 
-### 1. Crie o ambiente e instale as dependências
+## 1. Crie o ambiente e instale as dependências
 
-Escolha **uma** das duas opções.
+### Escolha **uma** das duas opções.
 
 #### Opção A: venv (você já tem Python 3.10+)
 
@@ -77,7 +77,7 @@ pip install -r requirements.txt
 - Com o conda, você **não usa** `python -m venv`. Sempre que abrir um terminal novo, rode `conda activate tutor` antes de qualquer comando do projeto.
 - No VS Code, pressione `Ctrl+Shift+P`, digite **Python: Select Interpreter** e escolha o ambiente `tutor`. Assim o editor também usa o Python certo.
 
-#### Crie o arquivo `.env` (nas duas opções)
+#### Crie e configure o arquivo `.env` (nas duas opções)
 
 ```powershell
 copy .env.example .env      # Windows
@@ -86,9 +86,9 @@ copy .env.example .env      # Windows
 ```bash
 cp .env.example .env        # Linux / macOS
 ```
-### 2. Configure a chave
+## 2. Configure a chave
 
-Abra o arquivo `.env` (criado no passo anterior) e cole sua chave:
+Abra o arquivo `.env` (criado no passo anterior) e cole sua chave do Gemini:
 
 ```
 PROVIDER=gemini
@@ -97,30 +97,46 @@ GOOGLE_API_KEY=sua-chave-aqui
 
 Sem aspas e sem espaços em volta do `=`. **Nunca** suba o `.env` para o GitHub (o `.gitignore` já o protege).
 
-### 3. Adicione os livros
+## 3. Adicione os livros
 
-Coloque os PDFs na pasta `books/`. Nomes terminando em `SB` e `WB` são reconhecidos como Student Book e Workbook.
+Coloque os arquivos PDF na pasta `books/`. Nomes terminando em `SB` e `WB` são reconhecidos como Student Book e Workbook.
 
-### 4. Gere o índice
+## 4. Gere o índice
 
 ```bash
 python ingest.py --limit 10   # teste rápido: só as 10 primeiras páginas de cada livro
 python ingest.py              # índice completo (demora mais; pode ser retomado)
 ```
 
-### 5. Abra o app
+## 5. Abra o app
 
 ```bash
 streamlit run app.py
 ```
 
-O navegador abre em `http://localhost:8501`.
+O navegador abrirá automaticamente em `http://localhost:8501`.
 
 ## Demo
 
-_Adicione aqui um print ou GIF._
+### A aplicação disponibiliza:
+
+1- Pergunta em português e explicação detalhada baseada no livro (modo Explicar).
+
+2- Trechos exatos usados na resposta, exibindo a fonte original (livro e número da página).
+
+3- Modo Praticar, com suporte a filtros (ex: apenas Workbook), retornando exercícios e gabarito.
+
+## Interface
+
+![Tela do aplicativo](./assets/app.png)
+
+## Demonstração 
+
+![Demonstração do aplicativo](./assets/demo.gif)
+
 
 ## Plano gratuito do Gemini
+
 - Gere a chave em Google AI Studio e coloque em GOOGLE_API_KEY.
 
 - O plano gratuito tem limites por minuto e por dia. O projeto espera entre as chamadas e tenta de novo em caso de erro 429. Se o limite diário acabar, rode python ingest.py novamente no dia seguinte: o cache continua de onde parou.
@@ -134,3 +150,16 @@ _Adicione aqui um print ou GIF._
 - [ ] Avaliar a qualidade das respostas com um conjunto de perguntas de teste
 - [ ] Trocar o re-rank por cross-encoder
 - [ ] Exercícios com correção interativa
+
+
+## 📩 Contato
+
+ **Conecte-se comigo no LinkedIn:** 
+ * [**Linkedin:**](https://www.linkedin.com/in/dayaneteodoro/) Dayane Teodoro
+
+ * [**Portfólio:**](https://www.confeitariadayaneteodoro.com.br/) www.confeitariadayaneteodoro.com.br
+
+
+"A tecnologia só faz sentido quando resolve um problema real." Se este projeto agregou valor, deixe uma ⭐ no repositório!
+
+#python #rag #faiss #agente #streamlit #gemini-api #LangChain #backend
